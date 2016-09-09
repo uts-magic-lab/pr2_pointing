@@ -1,0 +1,72 @@
+* roslaunch pr2_gazebo pr2_wg_world.launch 
+  OR roslaunch gazebo_worlds empty_world.launch
+  OR  roslaunch pr2_gazebo pr2.launch
+* Goto http://pr2support.willowgarage.com/wiki/Tutorials
+* See for explanation: 
+http://ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29 
+* ROS_MASTER_URI=http://rosim:11311
+* ROS_MASTER_URI=http://localhost:11311
+* export ROS_PACKAGE_PATH=/opt/ros/electric/stacks:/home/magiclab/workspace
+
+-------------------------------------------On PR2-----------------------------------
+roslaunch pr2_interactive_manipulation pr2_interactive_manipulation_robot.launch stereo:=true
+
+
+-----------------------------------On PC---------------------------------
+roslaunch pr2_interactive_manipulation pr2_interactive_manipulation_desktop.launch
+
+export ROS_IP=IP Address of my host
+
+-------------------------------------------------------------------------------------
+We can control the arm from the command line by publishing messages to actions. As an example, we will try to open the PR2's right gripper.
+
+First we need to find the appropriate topic.
+
+rostopic list | grep r_gripper
+
+We see that there is a topic called "/r_gripper_controller/command", which seems like a good choice. Let's see what type of message it requires.
+
+rostopic info /r_gripper_controller/command
+
+From this we see that we need to produce a message of type "pr2_controllers_msgs/Pr2GripperCommand". The following command allows us to see the details of this message.
+
+rosmsg show pr2_controllers_msgs/Pr2GripperCommand
+
+In order to command the gripper, we need to supply a floating point position and max_effort value. We now have enough information to open the gripper by publishing a message to "r_gripper_controller/command" using the "pr2_controllers_msgs/Pr2GripperCommand" message
+
+rostopic pub r_gripper_controller/command pr2_controllers_msgs/Pr2GripperCommand "{position: 0.06, max_effort: 100.0}"
+
+-----------------------------------------------------------------------------------------------
+Running the autonomous map exploration
+on PR2:- roslaunch pr2_2dnav pr2_2dnav.launch
+Export ROBOT=pr2
+on PC:- roslaunch my_pr2_map.launch 
+set rviz Fixed and Target Frame to /map and remember to turn off the teleop_joystick or Keyboard
+-------------------------------------------------------------------------------------------------
+rosrun tf static_transform_publisher -0.2 0 0.35 0 0 0 -1   sensor_mount_link camera_link 100
+rosrun tf static_transform_publisher 0 0 0 0 0 0 1 camera_link openni_depth_frame 100
+
+sudo ntpdate pool.ntp.org
+-------------------------------------------------------------------------------------------------
+<!-- Static Transform Publishers -->
+	<node pkg="tf" type="static_transform_publisher" name="sensormount_to_cameralink" args="-0.2 0 0.35 0 0 0 -1 sensor_mount_link camera_link 100" /> 
+	<node pkg="tf" type="static_transform_publisher" name="cameralink_to_opennidepth" args="0 0 0 0 0 0 1 camera_link openni_camera 100" />  
+--------------------------------------------------------------------------------------------------
+Building Maps
+1)roslaunch gmapping slam_gmapping_pr2.launch AND LAUNCH roslaunch pr2_teleop teleop_joystick.launch
+2) rosrun rviz rviz AND add map display MAP with topic /map
+3) rosrun gmapping slam_gmapping scan:=base_scan _odom_frame:=odom_combined
+4) save a map(map.pgm and map.yaml) to current path by "rosrun map_server map_saver "
+5) load the map by above procedure
+
+-----------------------------------------------------------------------------
+In Masters Class Use this 
+
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/u/shaukata/MastersClass/packages
+
+-----------------------------------------------------------------------------
+
+
+
+
+

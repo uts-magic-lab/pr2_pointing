@@ -1,0 +1,11 @@
+<launch>
+	<!-- Launch Openni Camera and Tracker on Robot-->
+	<!-- include file="$(find openni_launch)/launch/openni.launch" /> -->
+	<include file="$(find rgbd_assembler)/launch/rgbd_assembler.launch" />
+	
+	<node pkg="openni_tracker" name = "openni_tracker" type="openni_tracker" respawn="true"/>
+	<!-- Static Transform Publishers -->
+	<node pkg="tf" type="static_transform_publisher" name="cameralink_to_opennidepth" args="0 0 0 0 0 0 1 head_mount_kinect_ir_link openni_depth_frame 100" />  
+		
+</launch>
+

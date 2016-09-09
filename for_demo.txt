@@ -1,0 +1,9 @@
+1) Set the following
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/u/shaukata/MastersClass/packages
+2) Run reset_head package
+3) check whether the clock are updated or not. If not run sudo ntpdate pool.ntp.org in every terminal
+4) launch " launch_1.launch " (from Masters Class Launch File) which will launch openni camera/tracker , and broadcasts static tranforms for the kinect
+5) launch " launch_pointing.launch " (from Masters Class Launch File) which will launch marker_extension, head_movement and pointing_pr2cpp
+6) In RVIZ, make sure that target frame is "/openni_depth_frame" and Fixed Frame is "/Odom_combined" . However it doesn't matter. And tick all the fields in TF panel which will let you visualise the output from kinect tracker and visualisers
+7) Make sure that teleop is not running as it will cause jitter while the robot follow pointing.
+

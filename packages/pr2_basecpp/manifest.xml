@@ -1,0 +1,19 @@
+<package>
+  <description brief="pr2_basecpp">
+
+     pr2_basecpp
+
+  </description>
+  <author>Shaukat Abedi</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pr2_basecpp</url>
+  <depend package="roslib"/>
+  <depend package="roscpp"/>
+  <depend package="tf"/>
+  <depend package="std_msgs"/>
+  <depend package="geometry_msgs"/>
+  <depend package="tf"/>
+</package>
+
+

@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="marker_extension" name = "marker_extension" respawn="true" type="marker_extension"/>
+	<node pkg="head_movement" name = "head_movement" respawn="true" type="point_head"/>	
+</launch>

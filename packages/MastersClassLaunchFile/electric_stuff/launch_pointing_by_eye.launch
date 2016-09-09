@@ -1,0 +1,5 @@
+<launch>
+	<node pkg="marker_extension_eye" name = "marker_extension_eye" respawn="true" type="marker_extension_eye"/>
+	<node pkg="head_movement" name = "head_movement" respawn="true" type="point_head"/>	
+	<node pkg="pointing_pr2cpp" name = "pointing_pr2cpp" respawn="true" type="pointing_pr2cpp"/>	
+</launch>

@@ -1,0 +1,5 @@
+<launch>
+	<node pkg="marker_extension" name = "marker_extension" type="marker_extension"/>
+	<node pkg="head_movement" name = "head_movement" type="point_head"/>	
+	<!-- <node pkg="pointing_pr2cpp" name = "pointing_pr2cpp" type="pointing_pr2cpp"/> -->	
+</launch>

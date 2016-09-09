@@ -1,0 +1,11 @@
+3 terminals with . set_path
+1) reset_head and then terminate it
+2) roslaunch launch_1.launch 
+3) roslaunch launch_pointing.launch 
+
+
+OR 2 Terminals with . set_path.sh
+1) reset_head and then terminate it
+2) roslaunch launch_all.launch 
+
+
